@@ -53,3 +53,31 @@ def AllShips(request):
             "message": "data not found",
             }
     return Response(response_data)
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def SingleShip(request,id):
+    context={
+        "request":request
+    }
+    if RegisterShipForSale.objects.get(id=id):
+      ship=RegisterShipForSale.objects.get(id=id)
+      serializer=RegSgipForSaleSerializer(instance=ship,context=context)
+      if serializer:
+            response_data={
+                "status":200,
+                "data":serializer.data
+            }
+      else:
+            response_data={
+                "status":201,
+                "message":"data not found"
+            }  
+    else:
+        response_data={
+                "status":201,
+                "message":f"Ship with id {id} does not exist"
+            }  
+    return Response(response_data)
