@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000'
+    'https://localhost:3000'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -94,10 +94,17 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'happymar_happymarine',
+#         'USER': 'happymar_happymarine',
+#         'PASSWORD': 'Hm@968188',
+#         'HOST': 'localhost',
+#         'PORT': '3306'
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -106,6 +113,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
 }
+
+AUTH_USER_MODEL='web.CstmUser'
 
 
 
@@ -151,6 +160,13 @@ STATICFILES_DIRS=[
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# MEDIA_URL = '/media/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATIC_URL = '/static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
