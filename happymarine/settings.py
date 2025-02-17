@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-a=%ao7=y9jpe(5m9gm(uh*pwhi#1o9#-%(-n!0&94vlcfd_z28
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://happymarine.ae/"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://happy-marine-shipping.vercel.app/'
+    'https://happy-marine-shipping.vercel.app'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -86,17 +86,17 @@ WSGI_APPLICATION = 'happymarine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+# DATABASES = {
+#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# }
 
 
 REST_FRAMEWORK = {
@@ -106,6 +106,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
 }
+
+AUTH_USER_MODEL='web.CstmUser'
 
 
 
@@ -151,6 +153,13 @@ STATICFILES_DIRS=[
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# MEDIA_URL = '/media/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATIC_URL = '/static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
