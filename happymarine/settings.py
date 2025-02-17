@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://happy-marine-shipping.vercel.app'
+    'https://happy-marine-shipping.vercel.app/'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
