@@ -8,7 +8,8 @@ urlpatterns = [
  path('single/<int:id>',views.SingleShip),
  path('updateShip/<int:id>',views.UpdateShip),
  path('deleteShip/<int:id>',views.DeleteShip),
-  path('login',views.Login),
+ path('login',views.Login),
+ path('AddShipForSale',views.AddShip),
 
  path('addCategory',views.AddCategory),
  path('viewCategory',views.AllCategory),

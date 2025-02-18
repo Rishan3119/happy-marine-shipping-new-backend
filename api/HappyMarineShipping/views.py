@@ -6,8 +6,8 @@ from django.conf import settings
 import random
 from django.utils.timezone import now,localtime
 
-from .serializers import RegSgipForSaleSerializer,CategorySerializer,SubCategorySerializer,AmenitiesSerializer
-from web.models import RegisterShipForSale,CstmUser,Category,Sub_category,Amenities
+from .serializers import RegSgipForSaleSerializer,CategorySerializer,SubCategorySerializer,AmenitiesSerializer,RegisterShipForSaleSerializer
+from web.models import AdminRegisterShipForSale,CstmUser,Category,Sub_category,Amenities,RegisterShipForSale
 
 
 from django.contrib.auth import authenticate
@@ -33,6 +33,26 @@ def AddShip(request):
    return Response(response_data)
 
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def AddShipForSale(request):
+   data=request.data
+   ship=RegisterShipForSaleSerializer(data=data)
+   print(data)
+   if ship.is_valid():
+        ship.save()
+        response_data={
+            "status":200,
+            "message":"Ship registered Successfully"
+        }
+   else:
+       response_data={
+            "Status":201,
+            "message":"data not Added"
+        }
+   return Response(response_data)
+
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -42,9 +62,9 @@ def AllShips(request):
         "request":request
     }
     if title:
-        ships = RegisterShipForSale.objects.filter(title__icontains=title)
+        ships = AdminRegisterShipForSale.objects.filter(title__icontains=title)
     else:
-        ships = RegisterShipForSale.objects.all()  
+        ships = AdminRegisterShipForSale.objects.all()  
     serializer = RegSgipForSaleSerializer(instance=ships, many=True,context=context)
     if serializer:
         response_data = {
@@ -66,8 +86,8 @@ def SingleShip(request,id):
     context={
         "request":request
     }
-    if RegisterShipForSale.objects.get(id=id):
-      ship=RegisterShipForSale.objects.get(id=id)
+    if AdminRegisterShipForSale.objects.get(id=id):
+      ship=AdminRegisterShipForSale.objects.get(id=id)
       serializer=RegSgipForSaleSerializer(instance=ship,context=context)
       if serializer:
             response_data={
@@ -316,7 +336,7 @@ def DeleteSubCat(request,id):
 @api_view(['PUT'])
 @permission_classes([AllowAny])
 def UpdateShip(request,id):
-   instance=RegisterShipForSale.objects.get(id=id)
+   instance=AdminRegisterShipForSale.objects.get(id=id)
    data=request.data
    if data['image']=="":
        data=request.data.copy()
@@ -343,7 +363,7 @@ def UpdateShip(request,id):
 @api_view(['DELETE'])
 @permission_classes([AllowAny])
 def DeleteShip(request,id):
-   category=RegisterShipForSale.objects.get(id=id)
+   category=AdminRegisterShipForSale.objects.get(id=id)
    if category:
         category.delete()
         response_data={
