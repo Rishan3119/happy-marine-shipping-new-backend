@@ -86,27 +86,18 @@ WSGI_APPLICATION = 'happymarine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'happymar_happymarine',
-#         'USER': 'happymar_happymarine',
-#         'PASSWORD': 'Hm@968188',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
-#     }
+#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
