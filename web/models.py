@@ -60,7 +60,7 @@ class RegisterShipForSale(models.Model):
     email = models.EmailField(null=True,blank=True)
     phone = models.DecimalField(decimal_places=0,max_digits=10,null=True,blank=True)
     image=models.ImageField(upload_to='ship_image',blank=True,null=True)
-    thumbnail_image=models.ImageField(upload_to='ship_image',blank=True,null=True)
+    thumbnail_image=models.ImageField(upload_to='thumbnail_image',blank=True,null=True)
     is_status=models.BooleanField(default=False)
     main_category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True,blank=True)
     
