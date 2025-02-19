@@ -79,6 +79,31 @@ def AllShips(request):
     return Response(response_data)
 
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def ViewShipForSale(request):
+    title=request.GET.get('title')
+    context={
+        "request":request
+    }
+    if title:
+        ships = RegisterShipForSale.objects.filter(title__icontains=title)
+    else:
+        ships = RegisterShipForSale.objects.all()  
+    serializer = RegisterShipForSaleSerializer(instance=ships, many=True,context=context)
+    if serializer:
+        response_data = {
+        "status": 200,
+        "data": serializer.data
+        }
+    else:
+            response_data = {
+            "Status": 201,
+            "message": "data not found",
+            }
+    return Response(response_data)
+
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
