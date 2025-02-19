@@ -12,6 +12,8 @@ urlpatterns = [
 
  path('AddShipForSale',views.AddShipForSale),
  path('viewShipForSale',views.ViewShipForSale),
+ path('deleteShipForSale/<int:id>',views.DeleteShipForSale),
+
 
 
  path('addCategory',views.AddCategory),

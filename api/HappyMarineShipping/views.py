@@ -401,3 +401,20 @@ def DeleteShip(request,id):
             "message":"data not found"
         }
    return Response(response_data)
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def DeleteShipForSale(request,id):
+   category=RegisterShipForSale.objects.get(id=id)
+   if category:
+        category.delete()
+        response_data={
+            "status":200,
+            "message":"success"
+        }
+   else:
+       response_data={
+            "status":201,
+            "message":"data not found"
+        }
+   return Response(response_data)
