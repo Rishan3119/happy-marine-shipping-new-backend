@@ -14,6 +14,16 @@ urlpatterns = [
  path('viewShipForSale',views.ViewShipForSale),
  path('deleteShipForSale/<int:id>',views.DeleteShipForSale),
 
+ path('RegShipForCharter',views.AddCharter),
+ path('viewShipForCharter',views.ViewShipForCharter),
+ path('deleteCharter/<int:id>',views.DeleteShipForCharter),
+
+ path('RegShipForEquipments',views.AddEquipments),
+ path('viewShipForEquipments',views.ViewShipForEquipments),
+ path('deleteEquipments/<int:id>',views.DeleteShipForEquipments),
+
+
+
 
 
  path('addCategory',views.AddCategory),

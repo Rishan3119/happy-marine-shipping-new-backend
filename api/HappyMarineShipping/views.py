@@ -6,8 +6,8 @@ from django.conf import settings
 import random
 from django.utils.timezone import now,localtime
 
-from .serializers import RegSgipForSaleSerializer,CategorySerializer,SubCategorySerializer,AmenitiesSerializer,RegisterShipForSaleSerializer
-from web.models import AdminRegisterShipForSale,CstmUser,Category,Sub_category,Amenities,RegisterShipForSale
+from .serializers import RegSgipForSaleSerializer,CategorySerializer,SubCategorySerializer,AmenitiesSerializer,RegisterShipForSaleSerializer,RegisterShipForCharterSerializer,RegisterShipForEquipmentsSerializer
+from web.models import AdminRegisterShipForSale,CstmUser,Category,Sub_category,Amenities,RegisterShipForSale,RegisterShipForCharter,RegisterShipForEquipments
 
 
 from django.contrib.auth import authenticate
@@ -24,6 +24,45 @@ def AddShip(request):
         response_data={
             "status":200,
             "message":"Ship registered Successfully"
+        }
+   else:
+       response_data={
+            "Status":201,
+            "message":"data not Added"
+        }
+   return Response(response_data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def AddCharter(request):
+   data=request.data
+   ship=RegisterShipForCharterSerializer(data=data)
+   print(data)
+   if ship.is_valid():
+        ship.save()
+        response_data={
+            "status":200,
+            "message":"Charter registered Successfully"
+        }
+   else:
+       response_data={
+            "Status":201,
+            "message":"data not Added"
+        }
+   return Response(response_data)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def AddEquipments(request):
+   data=request.data
+   ship=RegisterShipForEquipmentsSerializer(data=data)
+   print(data)
+   if ship.is_valid():
+        ship.save()
+        response_data={
+            "status":200,
+            "message":"Equipment registered Successfully"
         }
    else:
        response_data={
@@ -91,6 +130,55 @@ def ViewShipForSale(request):
     else:
         ships = RegisterShipForSale.objects.all()  
     serializer = RegisterShipForSaleSerializer(instance=ships, many=True,context=context)
+    if serializer:
+        response_data = {
+        "status": 200,
+        "data": serializer.data
+        }
+    else:
+            response_data = {
+            "Status": 201,
+            "message": "data not found",
+            }
+    return Response(response_data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def ViewShipForCharter(request):
+    short_description=request.GET.get('short_description')
+    context={
+        "request":request
+    }
+    if short_description:
+        ships = RegisterShipForCharter.objects.filter(short_description__icontains=short_description)
+    else:
+        ships = RegisterShipForCharter.objects.all()  
+    serializer = RegisterShipForCharterSerializer(instance=ships, many=True,context=context)
+    if serializer:
+        response_data = {
+        "status": 200,
+        "data": serializer.data
+        }
+    else:
+            response_data = {
+            "Status": 201,
+            "message": "data not found",
+            }
+    return Response(response_data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def ViewShipForEquipments(request):
+    category=request.GET.get('category')
+    context={
+        "request":request
+    }
+    if category:
+        ships = RegisterShipForEquipments.objects.filter(category__icontains=category)
+    else:
+        ships = RegisterShipForEquipments.objects.all()  
+    serializer = RegisterShipForEquipmentsSerializer(instance=ships, many=True,context=context)
     if serializer:
         response_data = {
         "status": 200,
@@ -406,6 +494,40 @@ def DeleteShip(request,id):
 @permission_classes([AllowAny])
 def DeleteShipForSale(request,id):
    category=RegisterShipForSale.objects.get(id=id)
+   if category:
+        category.delete()
+        response_data={
+            "status":200,
+            "message":"success"
+        }
+   else:
+       response_data={
+            "status":201,
+            "message":"data not found"
+        }
+   return Response(response_data)
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def DeleteShipForCharter(request,id):
+   category=RegisterShipForCharter.objects.get(id=id)
+   if category:
+        category.delete()
+        response_data={
+            "status":200,
+            "message":"success"
+        }
+   else:
+       response_data={
+            "status":201,
+            "message":"data not found"
+        }
+   return Response(response_data)
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def DeleteShipForEquipments(request,id):
+   category=RegisterShipForEquipments.objects.get(id=id)
    if category:
         category.delete()
         response_data={

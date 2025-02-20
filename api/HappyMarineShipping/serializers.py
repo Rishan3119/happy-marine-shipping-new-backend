@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from web.models import AdminRegisterShipForSale,CstmUser,Category,Sub_category,Amenities,RegisterShipForSale
+from web.models import AdminRegisterShipForSale,CstmUser,Category,Sub_category,Amenities,RegisterShipForSale,RegisterShipForCharter,RegisterShipForEquipments
 
 class userSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,4 +30,14 @@ class RegSgipForSaleSerializer(serializers.ModelSerializer):
 class RegisterShipForSaleSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegisterShipForSale
+        fields = '__all__'
+
+class RegisterShipForCharterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegisterShipForCharter
+        fields = '__all__'
+
+class RegisterShipForEquipmentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegisterShipForEquipments
         fields = '__all__'
